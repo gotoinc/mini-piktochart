@@ -11,17 +11,20 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "server": "nodemon --watch 'src/**/*.ts' --exec ts-node ./server/server.ts"
+    "server": "nodemon --watch 'src/**/*.ts' --exec ts-node ./src/server.ts"
   },
   "main": "index.js",
   "dependencies": {
     "bootstrap": "^4.6.1",
     "core-js": "^3.8.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "jquery": "^2.2.3",
     "junk": "^3.1.0",
     "multer": "^1.4.3",
     "nodemon": "^1.9.1",
+    "path": "^0.12.7",
     "vue": "^3.2.13"
   },
   "devDependencies": {

@@ -52,7 +52,18 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(async () => {
+  try {
+    await fetch('http://localhost:8000/images').then(res => console.log(res))
+  } catch(e) {
+    console.log('error', e)
+  }
+})
+
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
