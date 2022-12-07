@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "CommonJS",
-    "rootDir": "./",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "checkJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "preserve",
+    "isolatedModules": false,
+    "target": "esnext",
+    "module": "esnext",
     "strict": true,
-    "skipLibCheck": true
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
   }
 }
