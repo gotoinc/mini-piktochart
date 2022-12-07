@@ -21,8 +21,8 @@
         <hr />
         <div class="text">
           <h4>Text</h4>
-          <input id="addTextInput" type="text" class="form-control" />
-          <button id="addText" class="btn btn-info btn-block mt-2">
+          <input v-model="title" id="addTextInput" type="text" class="form-control" />
+          <button @click="addTitle" id="addText" class="btn btn-info btn-block mt-2">
             Add Text
           </button>
         </div>
@@ -30,7 +30,6 @@
           <h4>Images</h4>
           <ul class="list-unstyled">
             <!-- List of images here -->
-            
           </ul>
         </div>
       </div>
@@ -38,9 +37,31 @@
 </template>
 
 <script setup>
+import { defineEmits,ref } from 'vue'
+const title = ref('')
+const titleList = ref([])
+
+const emit = defineEmits(['titles'])
+const addTitle = () => {
+  const newTitle = {
+    text: title.value,
+    id: titleList.value.length
+  }
+  if(title.value.trim()) {
+    titleList.value.push(newTitle)
+    title.value = ''
+
+    emit('titles',titleList.value)
+  } 
+}
 
 </script>
 
-<style lang="scss" scoped>
+<style>
+#title {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
 </style>
