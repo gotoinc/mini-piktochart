@@ -3,7 +3,6 @@ import fs from "fs";
 import multer from "multer";
 import { not as isNotJunk } from "junk";
 
-var path = require("path");
 const cors = require("cors");
 const server = express();
 
