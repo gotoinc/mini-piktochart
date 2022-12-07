@@ -44,6 +44,16 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+
+onMounted(async () => {
+  try {
+    await fetch('http://localhost:8000/images').then(res => console.log(res))
+  } catch(e) {
+    console.log('error', e)
+  }
+})
+
 import 'bootstrap/dist/css/bootstrap.css'
 
 </script>
