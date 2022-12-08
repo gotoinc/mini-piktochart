@@ -6,36 +6,37 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import "bootstrap/dist/css/bootstrap.css";
+import { onMounted, ref } from 'vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import SideBar from './SideBar.vue'
+import DrawArea from './DrawArea.vue'
 
-import SideBar from "./SideBar.vue";
-import DrawArea from "./DrawArea.vue";
+import { devUrl } from '../variables/app'
 
-const imagesList = ref([]);
+const imagesList = ref([])
 
-const titleList = ref([]);
+const titleList = ref([])
 
 const getTitles = (titles) => {
-  titleList.value = titles;
-};
+  titleList.value = titles
+}
 
 const getUpdatedTitleList = (newTitleList) => {
-  titleList.value = newTitleList;
-};
+  titleList.value = newTitleList
+}
 
 onMounted(async () => {
-  if (localStorage.getItem("titleList")) {
-    console.log("we have list in local");
-    titleList.value = JSON.parse(localStorage.getItem("titleList"));
+  if (localStorage.getItem('titleList')) {
+    console.log('we have list in local')
+    titleList.value = JSON.parse(localStorage.getItem('titleList'))
   }
 
   try {
-    await fetch("http://localhost:8000/images")
+    await fetch(`${devUrl}/images`)
       .then((data) => data.json())
-      .then((res) => (imagesList.value = res));
+      .then((res) => (imagesList.value = res))
   } catch (e) {
-    console.log("error", e);
+    console.log('error', e)
   }
-});
+})
 </script>

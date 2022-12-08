@@ -15,6 +15,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@vue/eslint-config-prettier": "^7.0.0",
     "bootstrap": "^4.6.1",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
@@ -25,6 +26,7 @@
     "moveable": "^0.41.1",
     "multer": "^1.4.3",
     "nodemon": "^1.9.1",
+    "prettier": "^2.8.1",
     "uuid": "^9.0.0",
     "v-drag": "^3.0.8",
     "ts-node": "^10.9.1",
@@ -55,12 +57,28 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/eslint-config-prettier"
     ],
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ]
+    }
   },
   "browserslist": [
     "> 1%",
