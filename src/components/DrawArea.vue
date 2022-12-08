@@ -50,7 +50,7 @@ const props = defineProps({
 const titlesListUpdated = ref([])
 const imagesListUpdated = ref([])
 
-const emit = defineEmits(['titlesListUpdated', 'newTitlesLength'])
+const emit = defineEmits({ titlesListUpdated: null }, { newTitlesLength: null })
 
 const editTitle = (id) => {
   const index = titlesListUpdated.value.findIndex((item) => item.id === id)

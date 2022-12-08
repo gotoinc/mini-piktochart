@@ -7,6 +7,7 @@
       :titleList="titleList"
       :imagesListForCanvas="imagesListForCanvas"
       @updatedImages="getUpdatedImages"
+      @loadImage="getLoadedImage"
     />
     <DrawArea
       :imagesListForCanvas="imagesListForCanvas"
@@ -48,9 +49,13 @@ const getUpdatedImages = (updatedImages) => {
   imagesList.value = updatedImages
 }
 
-const getUploadedImages = async () => {
+const getLoadedImage = (loadedImage) => {
+  imagesList.value.push(loadedImage)
+}
+
+const getUploadedImages = () => {
   try {
-    await fetch(`${devUrl}/images`)
+    fetch(`${devUrl}/images`)
       .then((data) => data.json())
       .then((res) => (imagesList.value = res))
   } catch (e) {

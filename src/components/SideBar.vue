@@ -68,7 +68,11 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['titles', 'imagesList'])
+const emit = defineEmits(
+  { titles: null },
+  { imagesList: null },
+  { loadImage: null }
+)
 const addTitle = () => {
   const newTitle = {
     text: title.value,
@@ -99,6 +103,7 @@ const addImageOnCanvas = (imageURL) => {
     id: uuidv4(),
     isEdit: false,
   }
+  console.log('WAIT URL', imageURL)
   imagesList.value = [...props.imagesListForCanvas, newImage]
   emit('imagesList', imagesList.value)
 

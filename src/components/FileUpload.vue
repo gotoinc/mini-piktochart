@@ -37,6 +37,7 @@ const loadedFile = ref(null)
 const onFileSelected = (e) => {
   loadedFile.value = e.target.files[0]
 }
+
 const onUpload = () => {
   const formData = new FormData()
 
