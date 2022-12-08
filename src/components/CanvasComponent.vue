@@ -34,6 +34,9 @@ const deleteTitle = (id) => {
   titlesListUpdated.value = titlesListUpdated.value.filter(title => title.id !== id)
 
   emit('titlesListUpdated',titlesListUpdated.value)
+
+
+  localStorage.setItem('titleList', JSON.stringify(titlesListUpdated.value))
 }
 
 watch(() => props.titleList, (newList) => {

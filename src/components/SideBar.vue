@@ -63,6 +63,9 @@ const addTitle = () => {
     titleList.value = [...props.titleList,newTitle]
     title.value = ''
     emit('titles',titleList.value)
+
+
+    localStorage.setItem('titleList', JSON.stringify(titleList.value))
   } 
 }
 

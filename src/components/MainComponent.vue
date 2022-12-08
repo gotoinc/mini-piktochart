@@ -23,7 +23,15 @@ const getUpdatedTitleList = (newTitleList) => {
   titleList.value = newTitleList
 }
 
+
+
 onMounted(async () => {
+
+  if(localStorage.getItem('titleList')){ 
+    console.log('we have list in local')
+    titleList.value = JSON.parse(localStorage.getItem('titleList'))
+  }
+  
   try {
     await fetch('http://localhost:8000/images').then(data => data.json()).then(res => console.log(res))
   } catch(e) {
