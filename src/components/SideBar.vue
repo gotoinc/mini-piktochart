@@ -10,8 +10,17 @@
       <hr />
       <div class="text">
         <h4>Text</h4>
-        <input id="addTextInput" type="text" class="form-control" />
-        <button id="addText" class="btn btn-info btn-block mt-2">
+        <input
+          v-model="title"
+          id="addTextInput"
+          type="text"
+          class="form-control"
+        />
+        <button
+          @click="addTitle"
+          id="addText"
+          class="btn btn-info btn-block mt-2"
+        >
           Add Text
         </button>
       </div>
@@ -20,7 +29,7 @@
         <ul class="list-unstyled">
           <!-- List of images here -->
           <li v-for="imgUrl in parsedUrls" :key="imgUrl">
-            <img :src="imgUrl"> alt="" />
+            <img :src="imgUrl" /> alt="" />
           </li>
         </ul>
       </div>
@@ -29,23 +38,46 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from "vue"
+import { defineEmits, ref, defineProps, computed } from "vue";
+import { v4 as uuidv4 } from "uuid";
 
 import FileUpload from "./FileUpload.vue";
 
+const title = ref("");
+const titleList = ref([]);
+
 const props = defineProps({
-  images: Array,
-})
+  titleList: {
+    type: Array,
+    required: true,
+  },
+  images: {
+    type: Array,
+  },
+});
+
+const emit = defineEmits(["titles"]);
+const addTitle = () => {
+  const newTitle = {
+    text: title.value,
+    id: uuidv4(),
+    isEdit: false,
+  };
+  if (title.value.trim()) {
+    titleList.value = [...props.titleList, newTitle];
+    title.value = "";
+    emit("titles", titleList.value);
+    localStorage.setItem("titleList", JSON.stringify(titleList.value));
+  }
+};
 
 const parsedUrls = computed(() => {
   const newUrls = props.images.map((imgUrl) => {
-    const imgUrlNew = imgUrl.split("assets/").pop()
+    const imgUrlNew = imgUrl.split("assets/").pop();
 
-    return require(`../assets/${imgUrlNew}`)
-  })
+    return require(`../assets/${imgUrlNew}`);
+  });
 
-  return newUrls
-})
+  return newUrls;
+});
 </script>
-
-<style lang="scss" scoped></style>
