@@ -3,7 +3,6 @@
     <div class="block mx-auto mt-3 overflow-hidden">
       <!-- Add images and texts to here -->
       <DraggableTitle
-        ref="titleRef"
         @click.stop
         v-for="title in props.titleList"
         :key="title.id"
@@ -11,6 +10,15 @@
         :editTitle="editTitle"
         :deleteTitle="deleteTitle"
         :titleList="props.titleList"
+      />
+      <DraggableImage
+        @click.stop
+        :editImage="editImage"
+        :deleteImage="deleteImage"
+        v-for="image in props.imagesListForCanvas"
+        :image="image"
+        :key="image.id"
+        :imagesListForCanvas="props.imagesListForCanvas"
       />
     </div>
   </div>
@@ -26,22 +34,32 @@ import {
   onUnmounted,
 } from 'vue'
 import DraggableTitle from './DraggableTitle.vue'
-
+import DraggableImage from './DraggableImage.vue'
+require('v-drag')
 const props = defineProps({
   titleList: {
+    type: Array,
+    required: true,
+  },
+  imagesListForCanvas: {
     type: Array,
     required: true,
   },
 })
 
 const titlesListUpdated = ref([])
-const titleRef = ref()
+const imagesListUpdated = ref([])
 
-const emit = defineEmits(['titlesListUpdated', 'newTitlesLength'])
+const emit = defineEmits({ titlesListUpdated: null }, { newTitlesLength: null })
 
 const editTitle = (id) => {
   const index = titlesListUpdated.value.findIndex((item) => item.id === id)
   titlesListUpdated.value[index].isEdit = !titlesListUpdated.value[index].isEdit
+}
+
+const editImage = (id) => {
+  const index = imagesListUpdated.value.findIndex((item) => item.id === id)
+  imagesListUpdated.value[index].isEdit = !imagesListUpdated.value[index].isEdit
 }
 
 const deleteTitle = (id) => {
@@ -53,6 +71,15 @@ const deleteTitle = (id) => {
   localStorage.setItem('titleList', JSON.stringify(titlesListUpdated.value))
 }
 
+const deleteImage = (id) => {
+  imagesListUpdated.value = imagesListUpdated.value.filter(
+    (image) => image.id !== id
+  )
+
+  emit('imagesListUpdated', imagesListUpdated.value)
+  localStorage.setItem('imagesList', JSON.stringify(imagesListUpdated.value))
+}
+
 watch(
   () => props.titleList,
   (newList) => {
@@ -60,8 +87,16 @@ watch(
   }
 )
 
+watch(
+  () => props.imagesListForCanvas,
+  (newList) => {
+    imagesListUpdated.value = [...newList]
+  }
+)
+
 const stopEditOutside = () => {
   titlesListUpdated.value.map((title) => (title.isEdit = false))
+  imagesListUpdated.value.map((title) => (title.isEdit = false))
 }
 
 onMounted(() => {
