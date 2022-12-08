@@ -3,25 +3,7 @@
     <div class="form mt-5">
       <h3 class="text-[28px] mb-3">Form</h3>
       <hr />
-      <div class="input-group">
-        <div class="custom-file">
-          <input
-            id="upload-image-input"
-            class="custom-file-input"
-            name="upload"
-            type="file"
-          />
-          <label class="custom-file-label" for="upload-image-input"
-            >Choose Image</label
-          >
-        </div>
-        <div class="input-group-append">
-          <button class="btn btn-info" type="button" id="upload-image">
-            Upload
-          </button>
-        </div>
-      </div>
-      <!-- Upload Form here -->
+      <FileUpload />
     </div>
     <div class="assets w-100 mt-5 text-[24px]">
       <h3 class="mb-[10px]">Assets</h3>
@@ -48,6 +30,8 @@
 
 <script setup>
 import { defineProps, computed } from "vue"
+
+import FileUpload from "./FileUpload.vue";
 
 const props = defineProps({
   images: Array,
