@@ -2,13 +2,13 @@
    <div class="canvas col-10 relative">
       <div class="block mx-auto mt-3 overflow-hidden ">
         <!-- Add images and texts to here -->
-        <DraggableTitle v-for="title in props.titleList" :key="title.id" :title="title" :editTitle="editTitle" :deleteTitle="deleteTitle" :titleList="props.titleList" />
+        <DraggableTitle ref="titleRef" @click.stop v-for="title in props.titleList" :key="title.id" :title="title" :editTitle="editTitle" :deleteTitle="deleteTitle" :titleList="props.titleList" />
       </div>
     </div>
 </template>
 
 <script setup>
-import { defineProps,defineEmits,ref,watch } from 'vue'
+import { defineProps,defineEmits,ref,watch,onMounted,onUnmounted } from 'vue'
 import DraggableTitle from './DraggableTitle.vue'
 
 const props = defineProps({
@@ -19,6 +19,8 @@ const props = defineProps({
 })
 
 const titlesListUpdated = ref([])
+
+const titleRef = ref()
 
 
 const emit = defineEmits(['titlesListUpdated', 'newTitlesLength'])
@@ -37,6 +39,19 @@ const deleteTitle = (id) => {
 watch(() => props.titleList, (newList) => {
   titlesListUpdated.value = [...newList];
 });
+
+
+const stopEditOutside = () => {
+  titlesListUpdated.value.map(title => title.isEdit = false)
+};
+
+onMounted(() => {
+  document.addEventListener("click", stopEditOutside);
+});
+onUnmounted(() => {
+  document.removeEventListener("click", stopEditOutside);
+});
+
 </script>
 
 <style scoped>
