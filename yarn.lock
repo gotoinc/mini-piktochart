@@ -7559,6 +7559,11 @@
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
   "version" "8.3.2"
 
+"uuid@^9.0.0":
+  "integrity" "sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
+  "version" "9.0.0"
+
 "v-drag@^3.0.8":
   "integrity" "sha512-JLxDVKBHH0GLC8r5BMDvtEkvELQJxV/v4TphZ7UAl1i8390SCOrwLXbrNO1MSqeggvP0yUgBNgfC2IXM4sjsVw=="
   "resolved" "https://registry.npmjs.org/v-drag/-/v-drag-3.0.8.tgz"

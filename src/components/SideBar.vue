@@ -37,31 +37,33 @@
 </template>
 
 <script setup>
-import { defineEmits,ref } from 'vue'
+import { defineEmits,ref,defineProps } from 'vue'
+import { v4 as uuidv4 } from 'uuid';
+
 const title = ref('')
 const titleList = ref([])
+
+const props = defineProps({
+    titleList: {
+      type: Array,
+      required: true,
+    }
+})
+
+
 
 const emit = defineEmits(['titles'])
 const addTitle = () => {
   const newTitle = {
     text: title.value,
-    id: titleList.value.length
+    id: uuidv4(),
+    isEdit: false
   }
   if(title.value.trim()) {
-    titleList.value.push(newTitle)
+    titleList.value = [...props.titleList,newTitle]
     title.value = ''
-
     emit('titles',titleList.value)
   } 
 }
 
 </script>
-
-<style>
-#title {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-</style>
