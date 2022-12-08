@@ -20,7 +20,7 @@
         <ul class="list-unstyled">
           <!-- List of images here -->
           <li v-for="imgUrl in parsedUrls" :key="imgUrl">
-            <img :src="imgUrl"> alt="" />
+            <img :src="imgUrl" /> alt="" />
           </li>
         </ul>
       </div>
@@ -29,9 +29,9 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from "vue"
+import { defineProps, computed } from 'vue'
 
-import FileUpload from "./FileUpload.vue";
+import FileUpload from './FileUpload.vue'
 
 const props = defineProps({
   images: Array,
@@ -39,7 +39,7 @@ const props = defineProps({
 
 const parsedUrls = computed(() => {
   const newUrls = props.images.map((imgUrl) => {
-    const imgUrlNew = imgUrl.split("assets/").pop()
+    const imgUrlNew = imgUrl.split('assets/').pop()
 
     return require(`../assets/${imgUrlNew}`)
   })

@@ -6,20 +6,22 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import "bootstrap/dist/css/bootstrap.css";
-import SideBar from "./SideBar.vue";
-import DrawArea from "./DrawArea.vue";
+import { onMounted, ref } from 'vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import SideBar from './SideBar.vue'
+import DrawArea from './DrawArea.vue'
 
-const imagesList = ref([]);
+import { devUrl } from '../variables/app'
+
+const imagesList = ref([])
 
 onMounted(async () => {
   try {
-    await fetch("http://localhost:8000/images")
+    await fetch(`${devUrl}/images`)
       .then((data) => data.json())
-      .then((res) => (imagesList.value = res));
+      .then((res) => (imagesList.value = res))
   } catch (e) {
-    console.log("error", e);
+    console.log('error', e)
   }
-});
+})
 </script>
