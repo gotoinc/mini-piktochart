@@ -1,17 +1,17 @@
 <template>
   <div
-    @dblclick="props.editTitle(props.title.id)"
-    :class="{ 'outline-dashed outline-2 p-[10px]': props.title.isEdit }"
+    @dblclick="$emit('editTitle', title.id)"
+    :class="{ 'outline-dashed outline-2 p-[10px]': title.isEdit }"
     class="absolute z-10 top-[20px] text-[30px] max-w-[500px] m-auto text-center"
     v-drag
   >
     <p class="max-w-[400px] m-auto text-center">
-      {{ props.title.text }}
+      {{ title.text }}
     </p>
     <span
-      @click="props.deleteTitle(props.title.id)"
+      @click="$emit('deleteTitle', title.id)"
       class="absolute top-[-20px] right-[-20px] bg-black py-[5px] px-[18px] rounded-[50%] text-white cursor-pointer"
-      v-show="props.title.isEdit"
+      v-show="title.isEdit"
       >X</span
     >
   </div>
@@ -22,21 +22,13 @@ import { defineProps } from 'vue'
 
 require('v-drag')
 
-const props = defineProps({
+defineProps({
   title: {
     type: Object,
     required: true,
   },
   titleList: {
     type: Array,
-    required: true,
-  },
-  editTitle: {
-    type: Function,
-    required: true,
-  },
-  deleteTitle: {
-    type: Function,
     required: true,
   },
 })

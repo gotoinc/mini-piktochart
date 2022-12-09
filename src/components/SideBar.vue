@@ -68,7 +68,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits({ titles: null }, { imagesList: null })
+const emit = defineEmits(
+  { 'update:titles': null },
+  { 'update:imagesList': null }
+)
 
 const addTitle = () => {
   const newTitle = {
@@ -79,7 +82,7 @@ const addTitle = () => {
   if (title.value.trim()) {
     titleList.value = [...props.titleList, newTitle]
     title.value = ''
-    emit('titles', titleList.value)
+    emit('update:titles', titleList.value)
     localStorage.setItem('titleList', JSON.stringify(titleList.value))
   }
 }
@@ -104,7 +107,7 @@ const addImageOnCanvas = (imageURL) => {
   }
 
   imagesList.value = [...props.imagesListForCanvas, newImage]
-  emit('imagesList', imagesList.value)
+  emit('update:imagesList', imagesList.value)
 
   localStorage.setItem('imagesList', JSON.stringify(imagesList.value))
 }

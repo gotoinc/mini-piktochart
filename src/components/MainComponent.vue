@@ -1,18 +1,17 @@
 <template>
   <div class="row h-100 w-100 m-0">
     <SideBar
-      @imagesList="getImages"
+      @update:imagesList="getImages"
+      @update:titles="getTitles"
       :images="imagesList"
-      @titles="getTitles"
       :titleList="titleList"
       :imagesListForCanvas="imagesListForCanvas"
-      @updatedImages="getUpdatedImages"
     />
     <DrawArea
-      :imagesListForCanvas="imagesListForCanvas"
-      :titleList="titleList"
       @titlesListUpdated="getUpdatedTitleList"
       @imagesListUpdated="getUpdatedImageList"
+      :imagesListForCanvas="imagesListForCanvas"
+      :titleList="titleList"
     />
   </div>
 </template>
@@ -44,9 +43,9 @@ const getImages = (images) => {
   imagesListForCanvas.value = images
 }
 
-const getUpdatedImages = (updatedImages) => {
-  imagesList.value = updatedImages
-}
+// const getUpdatedImages = (updatedImages) => {
+//   imagesList.value = updatedImages
+// }
 
 const getUploadedImages = () => {
   try {
