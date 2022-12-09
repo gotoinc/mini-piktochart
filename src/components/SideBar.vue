@@ -93,7 +93,7 @@ const parseUrl = (url) => url.split('img/').pop()
 const parsedUrls = computed(() => {
   const newUrls = props.images.map((imgUrl) => {
     const imgUrlNew = parseUrl(imgUrl)
-    console.log('url will be', imgUrlNew, require(`@/img/${imgUrlNew}`))
+
     return require(`@/img/${imgUrlNew}`)
   })
 
@@ -110,7 +110,6 @@ const addImageOnCanvas = (imageURL) => {
     id: uuidv4(),
     isEdit: false,
   }
-  console.log('WAIT URL', imageURL)
   imagesList.value = [...props.imagesListForCanvas, newImage]
   emit('imagesList', imagesList.value)
 
