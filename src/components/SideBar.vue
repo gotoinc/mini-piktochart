@@ -3,7 +3,7 @@
     <div class="form mt-5">
       <h3 class="text-[28px] mb-3">Form</h3>
       <hr />
-      <FileUpload :addImageOnCanvas="addImageOnCanvas" />
+      <FileUpload @loadImage="loadImage" />
     </div>
     <div class="assets w-100 mt-5 text-[24px]">
       <h3 class="mb-[10px]">Assets</h3>
@@ -35,6 +35,22 @@
           >
             <img class="hover:cursor-pointer" :src="imgUrl" />
           </li>
+          <li>
+            <!-- <img
+              v-if="generatedUrl"
+              class="hover:cursor-pointer"
+              :src="require(generatedUrl)"
+            /> -->
+            <!-- <img
+              v-if="generatedUrl"
+              class="hover:cursor-pointer"
+              :src="require(`@/assets/${generatedUrl}`)"
+            /> -->
+          </li>
+          generatedUrl:
+          {{
+            generatedUrl
+          }}
         </ul>
       </div>
     </div>
@@ -52,6 +68,7 @@ require('v-drag')
 const title = ref('')
 const titleList = ref([])
 const imagesList = ref([])
+const generatedUrl = ref(null)
 
 const props = defineProps({
   titleList: {
@@ -87,15 +104,29 @@ const addTitle = () => {
   }
 }
 
+const parseUrl = (url) => url.split('assets/').pop()
+
 const parsedUrls = computed(() => {
   const newUrls = props.images.map((imgUrl) => {
-    const imgUrlNew = imgUrl.split('assets/').pop()
-
-    return require(`../assets/${imgUrlNew}`)
+    const imgUrlNew = parseUrl(imgUrl)
+    console.log('url will be', imgUrlNew)
+    return require(`@/assets/${imgUrlNew}`)
   })
 
   return newUrls
 })
+
+const generateLoadedImage = (filename) => {
+  generatedUrl.value = parseUrl(filename)
+}
+
+const loadImage = (filename) => {
+  const fullUrl = `../assets/${parseUrl(filename)}`
+  console.log(111, filename, fullUrl)
+  // addImageOnCanvas(fullUrl)
+
+  generateLoadedImage(filename)
+}
 
 const addImageOnCanvas = (imageURL) => {
   const newImage = {
