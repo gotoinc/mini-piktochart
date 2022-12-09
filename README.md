@@ -15,6 +15,11 @@ yarn serve
 yarn build
 ```
 
+### Project development with server
+```
+yarn dev
+```
+
 ### Lints and fixes files
 ```
 yarn lint
