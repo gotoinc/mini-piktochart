@@ -3,21 +3,21 @@
     <div class="block mx-auto mt-3 overflow-hidden">
       <!-- Add images and texts to here -->
       <DraggableTitle
-        @click.stop
         v-for="title in props.titleList"
         :key="title.id"
+        @click.stop
+        @editTitle="editTitle"
+        @deleteTitle="deleteTitle"
         :title="title"
-        :editTitle="editTitle"
-        :deleteTitle="deleteTitle"
         :titleList="props.titleList"
       />
       <DraggableImage
-        @click.stop
-        :editImage="editImage"
-        :deleteImage="deleteImage"
         v-for="image in props.imagesListForCanvas"
-        :image="image"
         :key="image.id"
+        @click.stop
+        @editImage="editImage"
+        @deleteImage="deleteImage"
+        :image="image"
         :imagesListForCanvas="props.imagesListForCanvas"
       />
     </div>
