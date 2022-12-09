@@ -3,7 +3,7 @@
     <div class="form mt-5">
       <h3 class="text-[28px] mb-3">Form</h3>
       <hr />
-      <FileUpload @loadImage="loadImage" />
+      <FileUpload :addImageOnCanvas="addImageOnCanvas" />
     </div>
     <div class="assets w-100 mt-5 text-[24px]">
       <h3 class="mb-[10px]">Assets</h3>
@@ -68,12 +68,8 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(
-  { titles: null },
-  { imagesList: null },
-  { loadImage: null },
-  { loadAllImages: null }
-)
+const emit = defineEmits({ titles: null }, { imagesList: null })
+
 const addTitle = () => {
   const newTitle = {
     text: title.value,
@@ -100,16 +96,13 @@ const parsedUrls = computed(() => {
   return newUrls
 })
 
-const loadImage = () => {
-  emit('loadAllImages')
-}
-
 const addImageOnCanvas = (imageURL) => {
   const newImage = {
     url: imageURL,
     id: uuidv4(),
     isEdit: false,
   }
+
   imagesList.value = [...props.imagesListForCanvas, newImage]
   emit('imagesList', imagesList.value)
 

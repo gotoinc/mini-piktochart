@@ -30,10 +30,8 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { devUrl } from '../variables/app'
-
-const emit = defineEmits({ loadImage: null })
 
 const loadedFile = ref(null)
 const onFileSelected = (e) => {
@@ -49,8 +47,6 @@ const onUpload = () => {
     fetch(`${devUrl}/uploads`, {
       method: 'POST',
       body: formData,
-    }).then(() => {
-      emit('loadImage')
     })
   } catch (e) {
     console.log('error', e)

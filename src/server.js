@@ -55,9 +55,10 @@ server
     })
   })
   .get('/images', (req, res) => {
-    const filePath = req.protocol + '://' + req.get('host') + '/img/'
+    const filePath = req.protocol + '://' + req.get('host') + '/assets/'
     const files = fs_1.default
-      .readdirSync(__dirname + '/img')
+      .readdirSync(__dirname + '/assets')
+
       .filter(junk_1.not) // remove .DS_STORE etc
       .map((url) => filePath + url) // map with url path
     res.json(files)

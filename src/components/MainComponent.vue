@@ -7,8 +7,6 @@
       :titleList="titleList"
       :imagesListForCanvas="imagesListForCanvas"
       @updatedImages="getUpdatedImages"
-      @loadImage="getLoadedImage"
-      @loadAllImages="getUploadedImages"
     />
     <DrawArea
       :imagesListForCanvas="imagesListForCanvas"
@@ -48,10 +46,6 @@ const getImages = (images) => {
 
 const getUpdatedImages = (updatedImages) => {
   imagesList.value = updatedImages
-}
-
-const getLoadedImage = (loadedImage) => {
-  imagesList.value.push(loadedImage)
 }
 
 const getUploadedImages = () => {
