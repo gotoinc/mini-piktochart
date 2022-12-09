@@ -12,7 +12,7 @@ server.use(express.urlencoded({ extended: true }))
 // Configure Multer Middleware and Storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, `./src/assets`)
+    cb(null, `./src/img`)
   },
   filename: (req, file, cb) => {
     const ext = file.originalname.split('.').slice(-1)
@@ -48,16 +48,16 @@ server
             req.protocol +
             '://' +
             req.get('host') +
-            '/assets/' +
+            '/img/' +
             req.file.filename,
         })
       }
     })
   })
   .get('/images', (req, res) => {
-    const filePath = req.protocol + '://' + req.get('host') + '/assets/'
+    const filePath = req.protocol + '://' + req.get('host') + '/img/'
     const files = fs
-      .readdirSync(__dirname + '/assets')
+      .readdirSync(__dirname + '/img')
       .filter(isNotJunk) // remove .DS_STORE etc
       .map((url) => filePath + url) // map with url path
     res.json(files)

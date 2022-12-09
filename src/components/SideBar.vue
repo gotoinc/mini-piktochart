@@ -69,6 +69,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits({ titles: null }, { imagesList: null })
+
 const addTitle = () => {
   const newTitle = {
     text: title.value,
@@ -83,11 +84,13 @@ const addTitle = () => {
   }
 }
 
+const parseUrl = (url) => url.split('img/').pop()
+
 const parsedUrls = computed(() => {
   const newUrls = props.images.map((imgUrl) => {
-    const imgUrlNew = imgUrl.split('assets/').pop()
+    const imgUrlNew = parseUrl(imgUrl)
 
-    return require(`../assets/${imgUrlNew}`)
+    return require(`@/img/${imgUrlNew}`)
   })
 
   return newUrls
@@ -99,7 +102,7 @@ const addImageOnCanvas = (imageURL) => {
     id: uuidv4(),
     isEdit: false,
   }
-  console.log('WAIT URL', imageURL)
+
   imagesList.value = [...props.imagesListForCanvas, newImage]
   emit('imagesList', imagesList.value)
 

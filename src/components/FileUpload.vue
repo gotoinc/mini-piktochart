@@ -44,7 +44,6 @@ const onUpload = () => {
   formData.append('upload', loadedFile.value, loadedFile.value.name)
 
   try {
-    console.log('formData', formData, loadedFile.value)
     fetch(`${devUrl}/uploads`, {
       method: 'POST',
       body: formData,

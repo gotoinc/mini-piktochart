@@ -58,6 +58,7 @@ server
     const filePath = req.protocol + '://' + req.get('host') + '/assets/'
     const files = fs_1.default
       .readdirSync(__dirname + '/assets')
+
       .filter(junk_1.not) // remove .DS_STORE etc
       .map((url) => filePath + url) // map with url path
     res.json(files)
