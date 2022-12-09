@@ -8,6 +8,7 @@
       :imagesListForCanvas="imagesListForCanvas"
       @updatedImages="getUpdatedImages"
       @loadImage="getLoadedImage"
+      @loadAllImages="getUploadedImages"
     />
     <DrawArea
       :imagesListForCanvas="imagesListForCanvas"

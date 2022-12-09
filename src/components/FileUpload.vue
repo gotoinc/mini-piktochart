@@ -33,15 +33,7 @@
 import { ref, defineEmits } from 'vue'
 import { devUrl } from '../variables/app'
 
-// const props = defineProps({
-//   addImageOnCanvas: {
-//     type: Function,
-//     required: true,
-//   },
-// })
 const emit = defineEmits({ loadImage: null })
-
-// console.log(props)
 
 const loadedFile = ref(null)
 const onFileSelected = (e) => {
@@ -57,12 +49,9 @@ const onUpload = () => {
     fetch(`${devUrl}/uploads`, {
       method: 'POST',
       body: formData,
+    }).then(() => {
+      emit('loadImage')
     })
-      .then((data) => data.json())
-      .then((res) => {
-        console.log('res', res)
-        emit('loadImage', res.file)
-      })
   } catch (e) {
     console.log('error', e)
   }

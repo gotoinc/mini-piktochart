@@ -35,22 +35,6 @@
           >
             <img class="hover:cursor-pointer" :src="imgUrl" />
           </li>
-          <li>
-            <!-- <img
-              v-if="generatedUrl"
-              class="hover:cursor-pointer"
-              :src="require(generatedUrl)"
-            /> -->
-            <!-- <img
-              v-if="generatedUrl"
-              class="hover:cursor-pointer"
-              :src="require(`@/assets/${generatedUrl}`)"
-            /> -->
-          </li>
-          generatedUrl:
-          {{
-            generatedUrl
-          }}
         </ul>
       </div>
     </div>
@@ -68,7 +52,6 @@ require('v-drag')
 const title = ref('')
 const titleList = ref([])
 const imagesList = ref([])
-const generatedUrl = ref(null)
 
 const props = defineProps({
   titleList: {
@@ -88,7 +71,8 @@ const props = defineProps({
 const emit = defineEmits(
   { titles: null },
   { imagesList: null },
-  { loadImage: null }
+  { loadImage: null },
+  { loadAllImages: null }
 )
 const addTitle = () => {
   const newTitle = {
@@ -104,28 +88,20 @@ const addTitle = () => {
   }
 }
 
-const parseUrl = (url) => url.split('assets/').pop()
+const parseUrl = (url) => url.split('img/').pop()
 
 const parsedUrls = computed(() => {
   const newUrls = props.images.map((imgUrl) => {
     const imgUrlNew = parseUrl(imgUrl)
-    console.log('url will be', imgUrlNew)
-    return require(`@/assets/${imgUrlNew}`)
+    console.log('url will be', imgUrlNew, require(`@/img/${imgUrlNew}`))
+    return require(`@/img/${imgUrlNew}`)
   })
 
   return newUrls
 })
 
-const generateLoadedImage = (filename) => {
-  generatedUrl.value = parseUrl(filename)
-}
-
-const loadImage = (filename) => {
-  const fullUrl = `../assets/${parseUrl(filename)}`
-  console.log(111, filename, fullUrl)
-  // addImageOnCanvas(fullUrl)
-
-  generateLoadedImage(filename)
+const loadImage = () => {
+  emit('loadAllImages')
 }
 
 const addImageOnCanvas = (imageURL) => {
