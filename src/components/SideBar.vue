@@ -68,11 +68,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(
-  { titles: null },
-  { imagesList: null },
-  { loadImage: null }
-)
+const emit = defineEmits({ titles: null }, { imagesList: null })
 const addTitle = () => {
   const newTitle = {
     text: title.value,
