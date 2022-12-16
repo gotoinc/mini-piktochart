@@ -21,8 +21,7 @@ import { onMounted, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import SideBar from './SideBar.vue'
 import DrawArea from './DrawArea.vue'
-
-import { devUrl } from '../variables/app'
+import { api } from '../api/api'
 
 const imagesListForCanvas = ref([])
 const titleList = ref([])
@@ -43,15 +42,10 @@ const getImages = (images) => {
   imagesListForCanvas.value = images
 }
 
-// const getUpdatedImages = (updatedImages) => {
-//   imagesList.value = updatedImages
-// }
-
-const getUploadedImages = () => {
+const getUploadedImages = async () => {
   try {
-    fetch(`${devUrl}/images`)
-      .then((data) => data.json())
-      .then((res) => (imagesList.value = res))
+    const { data } = await api.images.getUploadedImages()
+    imagesList.value = data
   } catch (e) {
     console.log('error', e)
   }

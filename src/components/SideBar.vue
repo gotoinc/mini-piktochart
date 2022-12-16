@@ -27,7 +27,6 @@
       <div class="image">
         <h4>Images</h4>
         <ul class="list-unstyled">
-          <!-- List of images here -->
           <li
             v-for="imgUrl in parsedUrls"
             @click="addImageOnCanvas(imgUrl)"

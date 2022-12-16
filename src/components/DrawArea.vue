@@ -1,7 +1,6 @@
 <template>
   <div class="canvas col-10 relative">
     <div class="block mx-auto mt-3 overflow-hidden">
-      <!-- Add images and texts to here -->
       <DraggableTitle
         v-for="title in props.titleList"
         :key="title.id"

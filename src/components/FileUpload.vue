@@ -23,7 +23,6 @@
       </button>
     </div>
   </div>
-  <!-- Upload Form here -->
   <div class="uploaded-file">
     {{ loadedFile ? loadedFile.name : null }}
   </div>
@@ -31,23 +30,20 @@
 
 <script setup>
 import { ref } from 'vue'
-import { devUrl } from '../variables/app'
+import { api } from '../api/api'
 
 const loadedFile = ref(null)
 const onFileSelected = (e) => {
   loadedFile.value = e.target.files[0]
 }
 
-const onUpload = () => {
+const onUpload = async () => {
   const formData = new FormData()
 
   formData.append('upload', loadedFile.value, loadedFile.value.name)
 
   try {
-    fetch(`${devUrl}/uploads`, {
-      method: 'POST',
-      body: formData,
-    })
+    await api.uploads.uploadImages(formData)
   } catch (e) {
     console.log('error', e)
   }
