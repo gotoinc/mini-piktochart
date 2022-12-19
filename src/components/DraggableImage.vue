@@ -17,6 +17,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
+// TODO use import statement https://vuejs.org/guide/reusability/custom-directives.html#introduction
 
 require('v-drag')
 

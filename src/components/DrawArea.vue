@@ -1,6 +1,8 @@
 <template>
   <div class="canvas col-10 relative">
-    <div class="block mx-auto mt-3 overflow-hidden">
+    <div
+      class="relative w-[800px] h-[800px] border-[2px] shadow-box-shadow-block mx-auto mt-3 overflow-hidden"
+    >
       <DraggableTitle
         v-for="title in props.titleList"
         :key="title.id"
@@ -24,17 +26,10 @@
 </template>
 
 <script setup>
-import {
-  defineProps,
-  defineEmits,
-  ref,
-  watch,
-  onMounted,
-  onUnmounted,
-} from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import DraggableTitle from './DraggableTitle.vue'
 import DraggableImage from './DraggableImage.vue'
-require('v-drag')
+
 const props = defineProps({
   titleList: {
     type: Array,
@@ -49,7 +44,7 @@ const props = defineProps({
 const titlesListUpdated = ref([])
 const imagesListUpdated = ref([])
 
-const emit = defineEmits({ titlesListUpdated: null }, { newTitlesLength: null })
+const emit = defineEmits({ titlesListUpdated: null })
 
 const editTitle = (id) => {
   const index = titlesListUpdated.value.findIndex((item) => item.id === id)

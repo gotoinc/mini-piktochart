@@ -6,7 +6,7 @@
         class="custom-file-input"
         name="upload"
         type="file"
-        @change="onFileSelected"
+        @change="fileSelect"
       />
       <label class="custom-file-label" for="upload-image-input"
         >Choose Image</label
@@ -17,7 +17,7 @@
         class="btn btn-info"
         type="button"
         id="upload-image"
-        @click="onUpload"
+        @click="uploadFile"
       >
         Upload
       </button>
@@ -33,18 +33,26 @@ import { ref } from 'vue'
 import { api } from '../api/api'
 
 const loadedFile = ref(null)
-const onFileSelected = (e) => {
+
+const emit = defineEmits({
+  'image-uploaded': null,
+})
+
+const fileSelect = (e) => {
   loadedFile.value = e.target.files[0]
 }
 
-const onUpload = async () => {
+const uploadFile = async () => {
   const formData = new FormData()
 
   formData.append('upload', loadedFile.value, loadedFile.value.name)
 
   try {
     await api.uploads.uploadImages(formData)
+
+    emit('image-uploaded')
   } catch (e) {
+    // TODO Add toast messages instead of console logs
     console.log('error', e)
   }
 }

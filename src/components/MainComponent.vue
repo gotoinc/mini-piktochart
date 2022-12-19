@@ -3,6 +3,7 @@
     <SideBar
       @update:imagesList="getImages"
       @update:titles="getTitles"
+      @fetch-image-list="getUploadedImages"
       :images="imagesList"
       :titleList="titleList"
       :imagesListForCanvas="imagesListForCanvas"
