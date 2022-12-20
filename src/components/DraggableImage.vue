@@ -1,7 +1,9 @@
 <template>
   <div
-    @dblclick="$emit('editImage', image.id)"
-    :class="{ 'outline-dashed outline-2 p-[10px]': image.isEdit }"
+    @dblclick="editImage(image.id, $event)"
+    :class="{
+      'outline-dashed outline-2 p-[10px]': image.isEdit,
+    }"
     class="text-[30px] inline-block min-w-[200px] relative text-center"
     v-drag
   >
@@ -12,14 +14,14 @@
       v-show="image.isEdit"
       >X</span
     >
+    <span>{{ image.isEdit ? image.coordinates : '' }}</span>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, ref } from 'vue'
 
-require('v-drag')
-
+import { useCoordinate } from '../composable/coordinates.js'
 defineProps({
   image: {
     type: Object,
@@ -30,6 +32,21 @@ defineProps({
     required: true,
   },
 })
+
+const coordinates = ref(null)
+
+const detectMoving = (event) => {
+  coordinates.value = useCoordinate(event)
+}
+
+const emit = defineEmits({
+  editImage: null,
+})
+
+const editImage = (imageID, event) => {
+  detectMoving(event)
+  emit('editImage', imageID, coordinates)
+}
 </script>
 
 <style lang="scss" scoped></style>

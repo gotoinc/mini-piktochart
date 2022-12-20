@@ -6,7 +6,7 @@
         class="custom-file-input"
         name="upload"
         type="file"
-        @change="onFileSelected"
+        @change="fileSelect"
       />
       <label class="custom-file-label" for="upload-image-input"
         >Choose Image</label
@@ -17,13 +17,12 @@
         class="btn btn-info"
         type="button"
         id="upload-image"
-        @click="onUpload"
+        @click="uploadFile"
       >
         Upload
       </button>
     </div>
   </div>
-  <!-- Upload Form here -->
   <div class="uploaded-file">
     {{ loadedFile ? loadedFile.name : null }}
   </div>
@@ -31,24 +30,29 @@
 
 <script setup>
 import { ref } from 'vue'
-import { devUrl } from '../variables/app'
+import { api } from '../api/api'
 
 const loadedFile = ref(null)
-const onFileSelected = (e) => {
+
+const emit = defineEmits({
+  'image-uploaded': null,
+})
+
+const fileSelect = (e) => {
   loadedFile.value = e.target.files[0]
 }
 
-const onUpload = () => {
+const uploadFile = async () => {
   const formData = new FormData()
 
   formData.append('upload', loadedFile.value, loadedFile.value.name)
 
   try {
-    fetch(`${devUrl}/uploads`, {
-      method: 'POST',
-      body: formData,
-    })
+    await api.uploads.uploadImages(formData)
+
+    emit('image-uploaded')
   } catch (e) {
+    // TODO Add toast messages instead of console logs
     console.log('error', e)
   }
 }

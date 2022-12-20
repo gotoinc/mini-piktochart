@@ -17,6 +17,7 @@
   "main": "index.js",
   "dependencies": {
     "@vue/eslint-config-prettier": "^7.0.0",
+    "axios": "^1.2.1",
     "bootstrap": "^4.6.1",
     "concurrently": "^7.6.0",
     "core-js": "^3.8.3",
@@ -57,9 +58,15 @@
     "env": {
       "node": true
     },
+    "globals": {
+      "defineProps": "readonly",
+      "defineEmits": "readonly",
+      "defineExpose": "readonly",
+      "withDefaults": "readonly"
+    },
     "extends": [
-      "plugin:vue/vue3-essential",
       "eslint:recommended",
+      "plugin:vue/vue3-essential",
       "@vue/eslint-config-prettier"
     ],
     "parserOptions": {

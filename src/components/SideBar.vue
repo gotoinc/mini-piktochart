@@ -3,7 +3,7 @@
     <div class="form mt-5">
       <h3 class="text-[28px] mb-3">Form</h3>
       <hr />
-      <FileUpload :addImageOnCanvas="addImageOnCanvas" />
+      <FileUpload @image-uploaded="fetchImageList" />
     </div>
     <div class="assets w-100 mt-5 text-[24px]">
       <h3 class="mb-[10px]">Assets</h3>
@@ -27,13 +27,13 @@
       <div class="image">
         <h4>Images</h4>
         <ul class="list-unstyled">
-          <!-- List of images here -->
           <li
-            v-for="imgUrl in parsedUrls"
+            class="w-[50px] h-[50px] ml-[5px] float-left mt-[10px]"
+            v-for="imgUrl in images"
             @click="addImageOnCanvas(imgUrl)"
             :key="imgUrl"
           >
-            <img class="hover:cursor-pointer" :src="imgUrl" />
+            <img class="w-100 h-100 cursor-pointer" :src="imgUrl" />
           </li>
         </ul>
       </div>
@@ -42,12 +42,10 @@
 </template>
 
 <script setup>
-import { defineEmits, ref, defineProps, computed } from 'vue'
+import { defineEmits, ref, defineProps } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 import FileUpload from './FileUpload.vue'
-
-require('v-drag')
 
 const title = ref('')
 const titleList = ref([])
@@ -67,11 +65,7 @@ const props = defineProps({
     required: true,
   },
 })
-
-const emit = defineEmits(
-  { 'update:titles': null },
-  { 'update:imagesList': null }
-)
+const emit = defineEmits({ 'update:titles': null, 'update:imagesList': null })
 
 const addTitle = () => {
   const newTitle = {
@@ -87,17 +81,9 @@ const addTitle = () => {
   }
 }
 
-const parseUrl = (url) => url.split('img/').pop()
-
-const parsedUrls = computed(() => {
-  const newUrls = props.images.map((imgUrl) => {
-    const imgUrlNew = parseUrl(imgUrl)
-
-    return require(`@/img/${imgUrlNew}`)
-  })
-
-  return newUrls
-})
+const fetchImageList = () => {
+  emit('fetch-image-list')
+}
 
 const addImageOnCanvas = (imageURL) => {
   const newImage = {
