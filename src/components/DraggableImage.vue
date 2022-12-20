@@ -18,10 +18,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps, ref } from 'vue'
 
-import { useCoordinate } from '../composable/coordinates.js'
+import { useCoordinate } from '../composable/coordinates'
 defineProps({
   image: {
     type: Object,
@@ -35,7 +35,7 @@ defineProps({
 
 const coordinates = ref(null)
 
-const detectMoving = (event) => {
+const detectMoving = (event: Event) => {
   coordinates.value = useCoordinate(event)
 }
 
@@ -43,7 +43,7 @@ const emit = defineEmits({
   editImage: null,
 })
 
-const editImage = (imageID, event) => {
+const editImage = (imageID: number, event: Event) => {
   detectMoving(event)
   emit('editImage', imageID, coordinates)
 }
