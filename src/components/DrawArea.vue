@@ -51,9 +51,12 @@ const editTitle = (id) => {
   titlesListUpdated.value[index].isEdit = !titlesListUpdated.value[index].isEdit
 }
 
-const editImage = (id) => {
+const editImage = (id, coordinates) => {
   const index = imagesListUpdated.value.findIndex((item) => item.id === id)
   imagesListUpdated.value[index].isEdit = !imagesListUpdated.value[index].isEdit
+
+  imagesListUpdated.value[index].coordinates = coordinates.value
+  localStorage.setItem('imagesList', JSON.stringify(imagesListUpdated.value))
 }
 
 const deleteTitle = (id) => {
