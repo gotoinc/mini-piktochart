@@ -10,8 +10,6 @@ const app = createApp(App)
 /*
   TODO
    CODE
-     - Replace vue-cli with vite https://vitejs.dev/
-    
      - Rewrite project to TypeScript, there must be no "*.js" files
    FEATURES / IMPROVEMENTS / BUGS
      - Fix bug: layers in canvas
