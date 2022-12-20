@@ -20,8 +20,6 @@
 <script setup>
 import { defineProps } from 'vue'
 
-require('v-drag')
-
 defineProps({
   title: {
     type: Object,

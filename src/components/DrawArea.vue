@@ -93,7 +93,10 @@ watch(
 
 const stopEditOutside = () => {
   titlesListUpdated.value.map((title) => (title.isEdit = false))
-  imagesListUpdated.value.map((title) => (title.isEdit = false))
+  imagesListUpdated.value.map((image) => (image.isEdit = false))
+
+  localStorage.setItem('imagesList', JSON.stringify(imagesListUpdated.value))
+  localStorage.setItem('titleList', JSON.stringify(titlesListUpdated.value))
 }
 
 onMounted(() => {

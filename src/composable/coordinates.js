@@ -6,11 +6,8 @@ export function useCoordinate(event) {
     Y: null,
   })
 
-  const nodeX = event.target
-  const nodeY = event.target
-
-  coordinates.value.X = Math.floor(nodeX.getBoundingClientRect().x)
-  coordinates.value.Y = Math.floor(nodeY.getBoundingClientRect().y)
+  coordinates.value.X = Math.floor(event.target.getBoundingClientRect().x)
+  coordinates.value.Y = Math.floor(event.target.getBoundingClientRect().y)
 
   return coordinates
 }

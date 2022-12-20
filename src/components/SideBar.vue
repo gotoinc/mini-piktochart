@@ -47,9 +47,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import FileUpload from './FileUpload.vue'
 
-// TODO use import
-require('v-drag')
-
 const title = ref('')
 const titleList = ref([])
 const imagesList = ref([])
