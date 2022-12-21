@@ -90,7 +90,7 @@ const addImageOnCanvas = (imageURL) => {
     isEdit: false,
   }
 
-  imagesList.value = [...props.imagesListForCanvas, newImage]
+  imagesList.value = [newImage, ...props.imagesListForCanvas]
   emit('update:imagesList', imagesList.value)
 
   localStorage.setItem('imagesList', JSON.stringify(imagesList.value))

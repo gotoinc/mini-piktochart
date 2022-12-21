@@ -16,7 +16,6 @@ const app = createApp(App)
      - Fix bug: when deleting item from canvas others must not change their location
      - Fix bug: after refresh items should save their location
      - Improvement: Restrict NOT image uploading
-     - Feature: new images should always appear in left top corner
 */
 
 app.use(drag).mount('#app')
