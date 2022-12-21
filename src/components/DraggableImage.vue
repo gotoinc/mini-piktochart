@@ -2,7 +2,7 @@
   <div
     @dblclick="editImage(image.id, $event)"
     :class="{
-      'outline-dashed outline-2 p-[10px]': image.isEdit,
+      'outline-dashed outline-2': image.isEdit,
     }"
     class="text-[30px] inline-block min-w-[200px] relative text-center"
     v-drag
@@ -14,7 +14,7 @@
       v-show="image.isEdit"
       >X</span
     >
-    <span>{{ image.isEdit ? image.coordinates : '' }}</span>
+    <!-- <span>{{ image.isEdit ? image.coordinates : '' }}</span> -->
   </div>
 </template>
 
