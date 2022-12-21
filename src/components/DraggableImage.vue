@@ -41,6 +41,7 @@ const detectMoving = (event: Event) => {
 
 const emit = defineEmits({
   editImage: null,
+  deleteImage: null,
 })
 
 const editImage = (imageID: number, event: Event) => {
