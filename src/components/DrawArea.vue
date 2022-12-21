@@ -21,6 +21,7 @@
         :image="image"
         :imagesListForCanvas="props.imagesListForCanvas"
       />
+      <ClearCanvasBtnVue @clearCanvas="clearCanvas" />
     </div>
   </div>
 </template>
@@ -30,6 +31,7 @@ import { ref, watch, onMounted, onUnmounted } from 'vue'
 import DraggableTitle from './DraggableTitle.vue'
 import DraggableImage from './DraggableImage.vue'
 
+import ClearCanvasBtnVue from './ClearCanvasBtn.vue'
 const props = defineProps({
   titleList: {
     type: Array,
@@ -44,7 +46,7 @@ const props = defineProps({
 const titlesListUpdated = ref([])
 const imagesListUpdated = ref([])
 
-const emit = defineEmits({ titlesListUpdated: null })
+const emit = defineEmits({ titlesListUpdated: null, clearCanvas: null })
 
 const editTitle = (id) => {
   const index = titlesListUpdated.value.findIndex((item) => item.id === id)
@@ -75,6 +77,10 @@ const deleteImage = (id) => {
 
   emit('imagesListUpdated', imagesListUpdated.value)
   localStorage.setItem('imagesList', JSON.stringify(imagesListUpdated.value))
+}
+
+const clearCanvas = () => {
+  emit('clear-canvas')
 }
 
 watch(

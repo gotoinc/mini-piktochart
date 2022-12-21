@@ -6,8 +6,6 @@
       <FileUpload @image-uploaded="fetchImageList" />
     </div>
     <div class="assets w-100 mt-5 text-[24px]">
-      <h3 class="mb-[10px]">Assets</h3>
-      <hr />
       <div class="text">
         <h4>Text</h4>
         <input

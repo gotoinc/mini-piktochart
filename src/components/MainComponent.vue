@@ -11,6 +11,7 @@
     <DrawArea
       @titlesListUpdated="getUpdatedTitleList"
       @imagesListUpdated="getUpdatedImageList"
+      @clearCanvas="clearCanvas"
       :imagesListForCanvas="imagesListForCanvas"
       :titleList="titleList"
     />
@@ -24,9 +25,9 @@ import SideBar from './SideBar.vue'
 import DrawArea from './DrawArea.vue'
 import { api } from '../api/api'
 
-const imagesListForCanvas = ref([])
+const imagesListForCanvas = ref([]) // images on canvas
 const titleList = ref([])
-const imagesList = ref([])
+const imagesList = ref([]) // images in sidebar
 const getTitles = (titles) => {
   titleList.value = titles
 }
@@ -50,6 +51,11 @@ const getUploadedImages = async () => {
   } catch (e) {
     console.log('error', e)
   }
+}
+
+const clearCanvas = () => {
+  imagesListForCanvas.value = []
+  titleList.value = []
 }
 
 onMounted(() => {

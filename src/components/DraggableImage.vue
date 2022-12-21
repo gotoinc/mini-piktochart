@@ -1,6 +1,6 @@
 <template>
   <div
-    @dblclick="editImage(image.id, $event)"
+    @v-drag-end="editImage(image.id, $event)"
     :class="{
       'outline-dashed outline-2': image.isEdit,
     }"
