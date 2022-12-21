@@ -15,7 +15,6 @@ const app = createApp(App)
      - Fix bug: layers in canvas
      - Fix bug: when deleting item from canvas others must not change their location
      - Fix bug: after refresh items should save their location
-     - Fix bug: text item selection area is too big
      - Improvement: Restrict NOT image uploading
      - Feature: new images should always appear in left top corner
 */
