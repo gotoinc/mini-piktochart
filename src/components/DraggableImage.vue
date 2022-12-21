@@ -22,16 +22,20 @@
 import { defineProps, ref } from 'vue'
 
 import { useCoordinate } from '../composable/coordinates'
-defineProps({
-  image: {
-    type: Object,
-    required: true,
-  },
-  imagesListForCanvas: {
-    type: Array,
-    required: true,
-  },
-})
+
+type Image = {
+  url: string
+  id: string
+  isEdit: boolean
+  coordinates: { X: number; Y: number }
+}
+
+interface Props {
+  image: Image
+  imagesListForCanvas: Image[]
+}
+
+defineProps<Props>()
 
 const coordinates = ref(null)
 
@@ -39,15 +43,13 @@ const detectMoving = (event: Event) => {
   coordinates.value = useCoordinate(event)
 }
 
-const emit = defineEmits({
-  editImage: null,
-  deleteImage: null,
-})
+const emit = defineEmits<{
+  (e: 'editImage', id: string, event: Event): void
+  (e: 'deleteImage', id: string): void
+}>()
 
-const editImage = (imageID: number, event: Event) => {
+const editImage = (imageID: string, event: Event) => {
   detectMoving(event)
   emit('editImage', imageID, coordinates)
 }
 </script>
-
-<style lang="scss" scoped></style>

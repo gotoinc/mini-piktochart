@@ -18,29 +18,43 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import SideBar from './SideBar.vue'
 import DrawArea from './DrawArea.vue'
 import { api } from '../api/api'
 
-const imagesListForCanvas = ref([]) // images on canvas
-const titleList = ref([])
-const imagesList = ref([]) // images in sidebar
-const getTitles = (titles) => {
+type Title = {
+  text: string
+  id: string
+  isEdit: boolean
+}
+
+type Image = {
+  url: string
+  id: string
+  isEdit: boolean
+  coordinates: { X: number; Y: number }
+}
+
+const imagesListForCanvas = ref<Image[]>([]) // images on canvas
+const titleList = ref<Title[]>([])
+const imagesList = ref<string[]>([]) // images in sidebar
+
+const getTitles = (titles: Title[]) => {
   titleList.value = titles
 }
 
-const getUpdatedTitleList = (newTitleList) => {
+const getUpdatedTitleList = (newTitleList: Title[]) => {
   titleList.value = newTitleList
 }
 
-const getUpdatedImageList = (newImageList) => {
+const getUpdatedImageList = (newImageList: Image[]) => {
   imagesListForCanvas.value = newImageList
 }
 
-const getImages = (images) => {
+const getImages = (images: Image[]) => {
   imagesListForCanvas.value = images
 }
 
