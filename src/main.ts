@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import drag from 'v-drag'
+import toast from './toast'
+
 import './assets/index.css'
 import './assets/main.css'
 
@@ -15,7 +17,6 @@ const app = createApp(App)
      - Fix bug: layers in canvas
      - Fix bug: when deleting item from canvas others must not change their location
      - Fix bug: after refresh items should save their location
-     - Improvement: Restrict NOT image uploading
 */
 
-app.use(drag).mount('#app')
+app.use(drag).use(toast).mount('#app')

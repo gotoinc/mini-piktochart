@@ -31,6 +31,9 @@
 <script setup>
 import { ref } from 'vue'
 import { api } from '../api/api'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const loadedFile = ref(null)
 
@@ -51,9 +54,22 @@ const uploadFile = async () => {
     await api.uploads.uploadImages(formData)
 
     emit('image-uploaded')
-  } catch (e) {
-    // TODO Add toast messages instead of console logs
-    console.log('error', e)
+  } catch (error) {
+    toast.error('Bad format! Please, upload png or jpg', toastOptions)
   }
+}
+
+const toastOptions = {
+  position: 'top-center',
+  timeout: 2000,
+  pauseOnHover: false,
+  closeOnClick: true,
+  draggable: true,
+  draggablePercent: 0.6,
+  showCloseButtonOnHover: false,
+  hideProgressBar: false,
+  closeButton: 'button',
+  icon: true,
+  rtl: false,
 }
 </script>

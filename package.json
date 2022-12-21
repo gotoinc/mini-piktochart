@@ -31,7 +31,8 @@
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0",
     "v-drag": "^3.0.8",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
