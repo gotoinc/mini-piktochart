@@ -19,19 +19,26 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps } from 'vue'
 
-defineProps({
-  title: {
-    type: Object,
-    required: true,
-  },
-  titleList: {
-    type: Array,
-    required: true,
-  },
-})
+type Title = {
+  text: string
+  id: string
+  isEdit: boolean
+}
+
+interface Props {
+  title: Title
+  titleList: Title[]
+}
+
+defineProps<Props>()
+
+defineEmits<{
+  (e: 'editTitle', id: string): void
+  (e: 'deleteTitle', id: string): void
+}>()
 </script>
 
 <style lang="scss" scoped></style>

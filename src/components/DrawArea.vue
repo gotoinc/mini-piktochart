@@ -26,34 +26,42 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import DraggableTitle from './DraggableTitle.vue'
 import DraggableImage from './DraggableImage.vue'
-
 import ClearCanvasBtnVue from './ClearCanvasBtn.vue'
-const props = defineProps({
-  titleList: {
-    type: Array,
-    required: true,
-  },
-  imagesListForCanvas: {
-    type: Array,
-    required: true,
-  },
-})
 
-const titlesListUpdated = ref([])
-const imagesListUpdated = ref([])
+type Title = { text: string; id: string; isEdit: boolean }
+type Image = {
+  url: string
+  id: string
+  isEdit: boolean
+  coordinates: { X: number; Y: number }
+}
 
-const emit = defineEmits({ titlesListUpdated: null, clearCanvas: null })
+interface Props {
+  titleList: Title[]
+  imagesListForCanvas: Image[]
+}
 
-const editTitle = (id) => {
+const props = defineProps<Props>()
+
+const titlesListUpdated = ref<Title[]>([])
+const imagesListUpdated = ref<Image[]>([])
+
+const emit = defineEmits<{
+  (e: 'imagesListUpdated', imagesListUpdated: Image[]): void
+  (e: 'titlesListUpdated', titlesListUpdated: Title[]): void
+  (e: 'clear-canvas'): void
+}>()
+
+const editTitle = (id: string) => {
   const index = titlesListUpdated.value.findIndex((item) => item.id === id)
   titlesListUpdated.value[index].isEdit = !titlesListUpdated.value[index].isEdit
 }
 
-const editImage = (id, coordinates) => {
+const editImage = (id: string, coordinates) => {
   const index = imagesListUpdated.value.findIndex((item) => item.id === id)
   imagesListUpdated.value[index].isEdit = !imagesListUpdated.value[index].isEdit
 
@@ -61,7 +69,7 @@ const editImage = (id, coordinates) => {
   localStorage.setItem('imagesList', JSON.stringify(imagesListUpdated.value))
 }
 
-const deleteTitle = (id) => {
+const deleteTitle = (id: string) => {
   titlesListUpdated.value = titlesListUpdated.value.filter(
     (title) => title.id !== id
   )
@@ -70,7 +78,7 @@ const deleteTitle = (id) => {
   localStorage.setItem('titleList', JSON.stringify(titlesListUpdated.value))
 }
 
-const deleteImage = (id) => {
+const deleteImage = (id: string) => {
   imagesListUpdated.value = imagesListUpdated.value.filter(
     (image) => image.id !== id
   )

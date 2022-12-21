@@ -39,31 +39,41 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineEmits, ref, defineProps } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 import FileUpload from './FileUpload.vue'
 
 const title = ref('')
-const titleList = ref([])
-const imagesList = ref([])
+const titleList = ref<Title[]>([])
+const imagesList = ref<Image[]>([])
 
-const props = defineProps({
-  titleList: {
-    type: Array,
-    required: true,
-  },
-  images: {
-    type: Array,
-    required: true,
-  },
-  imagesListForCanvas: {
-    type: Array,
-    required: true,
-  },
-})
-const emit = defineEmits({ 'update:titles': null, 'update:imagesList': null })
+type Title = {
+  text: string
+  id: string
+  isEdit: boolean
+}
+type Image = {
+  url: string
+  id: string
+  isEdit: boolean
+  coordinates: { X: number; Y: number }
+}
+
+interface Props {
+  titleList: Title[]
+  images: string[]
+  imagesListForCanvas: Image[]
+}
+
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'update:titles', titleList: Title[]): void
+  (e: 'update:imagesList', imagesList: Image[]): void
+  (e: 'fetch-image-list'): void
+}>()
 
 const addTitle = () => {
   const newTitle = {
@@ -83,11 +93,12 @@ const fetchImageList = () => {
   emit('fetch-image-list')
 }
 
-const addImageOnCanvas = (imageURL) => {
+const addImageOnCanvas = (imageURL: string) => {
   const newImage = {
     url: imageURL,
     id: uuidv4(),
     isEdit: false,
+    coordinates: { X: null, Y: null },
   }
 
   imagesList.value = [newImage, ...props.imagesListForCanvas]

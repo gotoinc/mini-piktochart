@@ -28,21 +28,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { api } from '../api/api'
-import { useToast } from 'vue-toastification'
+import { useToast, PluginOptions, POSITION } from 'vue-toastification'
 
 const toast = useToast()
 
-const loadedFile = ref(null)
+const loadedFile = ref<File>(null)
 
-const emit = defineEmits({
-  'image-uploaded': null,
-})
+const emit = defineEmits<{
+  (e: 'image-uploaded'): void
+}>()
 
-const fileSelect = (e) => {
-  loadedFile.value = e.target.files[0]
+const fileSelect = (event: Event) => {
+  loadedFile.value = (event.target as HTMLInputElement).files[0]
 }
 
 const uploadFile = async () => {
@@ -59,8 +59,8 @@ const uploadFile = async () => {
   }
 }
 
-const toastOptions = {
-  position: 'top-center',
+const toastOptions: PluginOptions = {
+  position: POSITION.TOP_CENTER,
   timeout: 2000,
   pauseOnHover: false,
   closeOnClick: true,
